@@ -1,0 +1,27 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence"
+             version="3.1">
+
+    <persistence-unit name="FirstStepsPU">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class></class>
+
+        <properties>
+            <!--
+            <property name="jakarta.persistence.jdbc.user" value=""/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+            -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:products.db"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+            <property name="dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
+            <property name="show_sql" value="true"/>
+            <property name="format_sql" value="true"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
