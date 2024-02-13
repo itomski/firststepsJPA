@@ -21,7 +21,8 @@ public class Product {
 
     private boolean available;
 
-    // private ProductGroup productGroup;
+    @ManyToOne // Mehrere Produkte gehören zu einer Produktgruppe
+    private ProductGroup productGroup;
 
     // private Set<Tag> tags;
 
@@ -66,5 +67,13 @@ public class Product {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public ProductGroup getProductGroup() {
+        return productGroup;
+    }
+
+    public void setProductGroup(ProductGroup productGroup) {
+        this.productGroup = productGroup;
     }
 }

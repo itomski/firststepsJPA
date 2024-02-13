@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User {
 
     @Id
@@ -23,7 +24,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.NEW;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Profile profile;
 
     public long getId() {
