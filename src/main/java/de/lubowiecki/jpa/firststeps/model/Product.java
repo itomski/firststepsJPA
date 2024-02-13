@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity // Soll in der DB gespeichert werden
 @Table(name = "products") // Name der Tabelle. Standard ist gleich dem Klassennamen
+@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p") // JPQL
 public class Product {
 
     @Id // Ist der Primaty-Key

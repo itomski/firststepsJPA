@@ -5,7 +5,9 @@
 
     <persistence-unit name="FirstStepsPU">
 
+        <!--
         <class>de.lubowiecki.jpa.firststeps.model.Product</class>
+        -->
 
         <properties>
             <!-- MySQL

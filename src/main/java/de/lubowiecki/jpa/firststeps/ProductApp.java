@@ -4,8 +4,10 @@ import de.lubowiecki.jpa.firststeps.model.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ProductApp {
 
@@ -14,8 +16,12 @@ public class ProductApp {
         try(EntityManagerFactory factory = Persistence.createEntityManagerFactory("FirstStepsPU");
                 EntityManager em = factory.createEntityManager()) {
 
+            // CRUD - Create Read Update Delete
             // insert(em);
-            readOne(em);
+            // readOne(em);
+            update(em);
+            //delete(em);
+            readAll(em);
 
         }
         catch (Exception e) {
@@ -46,11 +52,33 @@ public class ProductApp {
     }
 
     private static void readAll(EntityManager em) {
-       //...
+
+        Query query = em.createNamedQuery("Product.findAll");
+        List<Product> products = query.getResultList(); // Liefert alle Objekte aus einer Tabelle
+
+        for (Product p : products) {
+            System.out.println(p.getName() + ", " + p.getDescription());
+        }
     }
 
     private static void delete(EntityManager em) {
-        //...
+
+        Product p = em.find(Product.class, 2);
+
+        em.getTransaction().begin();
+        em.remove(p);
+        em.getTransaction().commit();
+    }
+
+    private static void update(EntityManager em) {
+
+        Product p = em.find(Product.class, 1);
+        p.setPrice(2.35);
+        p.setName("H Milch");
+        p.setDescription("H Hofmilch, 3,5% Fett.");
+
+        em.getTransaction().begin();
+        em.getTransaction().commit();
     }
 
     private static void readByGroup(EntityManager em) {
