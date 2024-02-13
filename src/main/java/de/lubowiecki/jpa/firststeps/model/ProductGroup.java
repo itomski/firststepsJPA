@@ -2,6 +2,7 @@ package de.lubowiecki.jpa.firststeps.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,11 @@ public class ProductGroup {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void addProduct(Product product) {
+        if(this.products == null)
+            this.products = new ArrayList<>();
+
+        this.products.add(product);
+        product.setProductGroup(this);
     }
 }

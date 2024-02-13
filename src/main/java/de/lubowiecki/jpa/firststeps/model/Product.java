@@ -1,6 +1,10 @@
 package de.lubowiecki.jpa.firststeps.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.SortNatural;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 @Entity // Soll in der DB gespeichert werden
 @Table(name = "products") // Name der Tabelle. Standard ist gleich dem Klassennamen
@@ -21,13 +25,12 @@ public class Product {
 
     private boolean available;
 
-    @ManyToOne // Mehrere Produkte gehören zu einer Produktgruppe
+    @ManyToOne // Mehrere Produkte gehören zu einer Produktgruppe, 1zuN
     private ProductGroup productGroup;
 
-    // private Set<Tag> tags;
-
-    // private Status status = Status.OK;
-
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @SortNatural
+    private Set<Tag> tags = new TreeSet<>();
 
     public int getId() {
         return id;
@@ -75,5 +78,16 @@ public class Product {
 
     public void setProductGroup(ProductGroup productGroup) {
         this.productGroup = productGroup;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag) {
+        if(!tags.contains(tag)) {
+            this.tags.add(tag);
+            tag.addProduct(this);
+        }
     }
 }
